@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>تطبيق إدخال بيانات</title>
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- ✅ تضمين ملف manifest -->
+  <link rel="manifest" href="manifest.json">
+
+  <!-- ✅ إعداد أيقونة PWA -->
+  <link rel="icon" href="icon.png" type="image/png">
+  <meta name="theme-color" content="#4CAF50">
+
+  <!-- ✅ دعم التثبيت على شاشة الهاتف -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+</head>
+<body>
+  <div class="container">
+    <h2>نموذج إدخال البيانات</h2>
+    <input type="text" id="fullName" placeholder="الاسم الثلاثي">
+    <input type="text" id="motherName" placeholder="اسم الأم">
+    <input type="date" id="birthDate" placeholder="المواليد">
+    <input type="text" id="address" placeholder="السكن">
+    <input type="text" id="nickname" placeholder="اللقب">
+    <input type="tel" id="phoneNumber" placeholder="رقم الهاتف">
+
+    <input type="file" id="imageInput" accept="image/*">
+    <img id="imagePreview" class="img-preview" src="" alt="">
+
+    <button onclick="addData()">حفظ البيانات</button>
+    <input type="text" id="searchBox" placeholder="بحث...">
+    <button onclick="exportToExcel()">تصدير إلى Excel</button>
+    <input type="file" id="importExcel" accept=".xlsx" onchange="importFromExcel(event)">
+
+    <table id="dataTable">
+      <thead>
+        <tr>
+          <th>الاسم</th><th>الأم</th><th>المواليد</th><th>السكن</th><th>اللقب</th><th>الهاتف</th><th>صورة</th><th>تعديل/حذف</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+  <script src="script.js"></script>
+
+  <!-- ✅ تسجيل Service Worker لتفعيل العمل بدون إنترنت -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js')
+        .then(() => console.log('✅ تم تسجيل Service Worker بنجاح.'))
+        .catch(err => console.error('❌ فشل في تسجيل Service Worker:', err));
+    }
+  </script>
+</body>
+</html>
